@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Jogador : MonoBehaviour {
 
@@ -8,6 +9,7 @@ public class Jogador : MonoBehaviour {
 	public bool podePular;
 	public float velocidade = 5f;
 	private SpriteRenderer sR;
+	public bool irFaseDois = false;
 
 	// Use this for initialization
 	void Start () {
@@ -28,17 +30,37 @@ public class Jogador : MonoBehaviour {
 		{
 			sR.flipX = !sR.flipX;
 		}
+
+		if (irFaseDois == true & Input.GetKey(KeyCode.W) || irFaseDois == true & Input.GetKey(KeyCode.UpArrow)) {
+			SceneManager.LoadScene ("Biblioteca");
+		}
 	}
 
 	void OnTriggerEnter2D(Collider2D coll){
-		podePular = true;
+		if (coll.tag == "biblioteca") {
+			irFaseDois = true;
+		}
+		else {
+			podePular = true;
+		}
+		Debug.Log (irFaseDois);
 	}
 
 	void OnTriggerStay2D(Collider2D coll){
-		podePular = true;
+		if (coll.tag == "biblioteca") {
+			irFaseDois = true;
+		}
+		else {		
+			podePular = true;
+		}
 	}
 
 	void OnTriggerExit2D(Collider2D coll){
-		podePular = false;
+		if (coll.tag == "biblioteca") {
+			irFaseDois = false;
+		}
+		else {
+			podePular = false;
+		}
 	}
 }
