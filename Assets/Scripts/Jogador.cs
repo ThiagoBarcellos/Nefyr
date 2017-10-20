@@ -20,10 +20,17 @@ public class Jogador : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(this.transform.position.x < -4.269f){
+			this.transform.position = new Vector2(-4.269f, -1.0487f);	
+		}	
+		if(this.transform.position.x > 10.6f){
+			this.transform.position = new Vector2(10.6f, -1.0487f);	
+		}
+
 		float andar = Input.GetAxis("Horizontal") * velocidade;
 		this.transform.position += new Vector3(andar, 0) * Time.deltaTime;
 		if (podePular == true && Input.GetKeyDown (KeyCode.Space)) {
-			rb2d.AddForce (Vector2.up * 2, ForceMode2D.Impulse);
+			rb2d.AddForce (Vector2.up * 4, ForceMode2D.Impulse);
 		}
 		bool flipSprite = (sR.flipX ? (andar > 0.01f) : (andar < 0.01f));
 		if (flipSprite) 
@@ -43,7 +50,6 @@ public class Jogador : MonoBehaviour {
 		else {
 			podePular = true;
 		}
-		Debug.Log (irFaseDois);
 	}
 
 	void OnTriggerStay2D(Collider2D coll){
