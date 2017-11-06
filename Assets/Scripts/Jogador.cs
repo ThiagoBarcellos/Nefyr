@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Jogador : MonoBehaviour {
 
@@ -12,6 +13,12 @@ public class Jogador : MonoBehaviour {
 	public bool irFaseDois = false;
 	// 0 para rua, 1 pra biblioteca...
 	static public int fase = 0;
+
+	public GameObject botao;
+	public GameObject livro;
+	public GameObject interagivel;
+
+	public bool abrirPorta = false;
 
 	public bool mudarAndar;
 
@@ -54,17 +61,29 @@ public class Jogador : MonoBehaviour {
 			MovimentoCamera.floor = 0;
 			this.transform.position = new Vector2(10.6f, -1.0487f);
 		}
+		if (botao.activeSelf & Input.GetKey (KeyCode.E)) {
+			Destroy (livro);
+			Destroy (interagivel);
+			abrirPorta = true;
+		}
 	}
 		
 	void OnTriggerEnter2D(Collider2D coll){
-			if (coll.tag == "biblioteca") {
-				irFaseDois = true;
-			}
-			else if(coll.tag == "Escada"){
-				mudarAndar = true;
-			}
+		if (coll.tag == "biblioteca") {
+			irFaseDois = true;
+		} 
+		else if (coll.tag == "Escada") {
+			mudarAndar = true;
+		} 
+		else if (coll.tag == "Interagivel") {
+			botao.SetActive (true);
+		} 
+		else if (coll.tag == "Porta" & abrirPorta == true & Input.GetKey(KeyCode.E)) {
+			Debug.Log ("Ganhou");
+		}
 			else {
 				podePular = true;
+				botao.SetActive (false);
 			}
 	}
 
@@ -74,6 +93,9 @@ public class Jogador : MonoBehaviour {
 			}
 			else if (coll.tag == "Escada") {
 				mudarAndar = true;
+			}
+			else if (coll.tag == "Interagivel") {
+				botao.SetActive (true);
 			}
 			else {		
 				podePular = true;
@@ -89,6 +111,7 @@ public class Jogador : MonoBehaviour {
 			} 
 			else {
 				podePular = false;
+				botao.SetActive (false);
 			}
 		}
 }
