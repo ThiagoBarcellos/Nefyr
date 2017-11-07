@@ -62,8 +62,8 @@ public class Jogador : MonoBehaviour {
 			this.transform.position = new Vector2(10.6f, -1.0487f);
 		}
 		if (botao.activeSelf & Input.GetKey (KeyCode.E)) {
-			Destroy (livro);
-			Destroy (interagivel);
+			livro.SetActive(false);
+			interagivel.SetActive (false);
 			abrirPorta = true;
 		}
 	}
@@ -81,37 +81,40 @@ public class Jogador : MonoBehaviour {
 		else if (coll.tag == "Porta" & abrirPorta == true & Input.GetKey(KeyCode.E)) {
 			Debug.Log ("Ganhou");
 		}
-			else {
-				podePular = true;
-				botao.SetActive (false);
-			}
+		else {
+			podePular = true;
+			botao.SetActive (false);
+		}
 	}
 
 	void OnTriggerStay2D(Collider2D coll){
-			if (coll.tag == "biblioteca") {
-				irFaseDois = true;
-			}
-			else if (coll.tag == "Escada") {
-				mudarAndar = true;
-			}
-			else if (coll.tag == "Interagivel") {
-				botao.SetActive (true);
-			}
-			else {		
-				podePular = true;
-			}
+		if (coll.tag == "biblioteca") {
+			irFaseDois = true;
 		}
+		else if (coll.tag == "Escada") {
+			mudarAndar = true;
+		}
+		else if (coll.tag == "Interagivel") {
+			botao.SetActive (true);
+		}
+		else if (coll.tag == "Porta" & abrirPorta == true & Input.GetKey(KeyCode.E)) {
+			Debug.Log ("Ganhou");
+		}
+		else {		
+			podePular = true;
+		}
+	}
 
 	void OnTriggerExit2D (Collider2D coll){
-			if (coll.tag == "biblioteca") {
-				irFaseDois = false;
-			} 
-			else if (coll.tag == "Escada") {
-				mudarAndar = false;
-			} 
-			else {
-				podePular = false;
-				botao.SetActive (false);
-			}
+		if (coll.tag == "biblioteca") {
+			irFaseDois = false;
+		} 
+		else if (coll.tag == "Escada") {
+			mudarAndar = false;
+		} 
+		else {
+			podePular = false;
+			botao.SetActive (false);
 		}
+	}
 }
