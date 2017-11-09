@@ -18,6 +18,12 @@ public class Jogador : MonoBehaviour {
 	public GameObject livro;
 	public GameObject interagivel;
 
+	public GameObject botaoSubir;
+	public GameObject interagivelSubir;
+
+	public GameObject botaoDescer;
+	public GameObject interagivelDescer;
+
 	public bool abrirPorta = false;
 
 	public bool mudarAndar;
@@ -78,12 +84,20 @@ public class Jogador : MonoBehaviour {
 		else if (coll.tag == "Interagivel") {
 			botao.SetActive (true);
 		} 
+		else if (coll.tag == "Subir") {
+			botaoSubir.SetActive (true);
+		}
+		else if (coll.tag == "Descer") {
+			botaoDescer.SetActive (true);
+		}
 		else if (coll.tag == "Porta" & abrirPorta == true & Input.GetKey(KeyCode.E)) {
 			Debug.Log ("Ganhou");
 		}
 		else {
 			podePular = true;
 			botao.SetActive (false);
+			botaoSubir.SetActive (false);
+			botaoDescer.SetActive(false);
 		}
 	}
 
@@ -96,6 +110,12 @@ public class Jogador : MonoBehaviour {
 		}
 		else if (coll.tag == "Interagivel") {
 			botao.SetActive (true);
+		}
+		else if (coll.tag == "Subir") {
+			botaoSubir.SetActive (true);
+		} 
+		else if (coll.tag == "Descer") {
+			botaoDescer.SetActive (true);
 		}
 		else if (coll.tag == "Porta" & abrirPorta == true & Input.GetKey(KeyCode.E)) {
 			Debug.Log ("Ganhou");
@@ -115,6 +135,8 @@ public class Jogador : MonoBehaviour {
 		else {
 			podePular = false;
 			botao.SetActive (false);
+			botaoSubir.SetActive (false);
+			botaoDescer.SetActive (false);
 		}
 	}
 }
