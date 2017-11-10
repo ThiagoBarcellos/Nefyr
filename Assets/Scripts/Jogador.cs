@@ -6,9 +6,11 @@ using UnityEngine.UI;
 
 public class Jogador : MonoBehaviour {
 
+	public int health = 2;
+
 	public Rigidbody2D rb2d;
 	public bool podePular;
-	public float velocidade = 5f;
+	public float velocidade = 3f;
 	private SpriteRenderer sR;
 	public bool irFaseDois = false;
 
@@ -32,6 +34,11 @@ public class Jogador : MonoBehaviour {
 
 	public bool mudarAndar;
 
+	public void TomaDano( int dano )
+	{
+		health -= dano;
+	}
+
 	// Use this for initialization
 	void Start () {
 		rb2d = GetComponent<Rigidbody2D>();
@@ -44,9 +51,18 @@ public class Jogador : MonoBehaviour {
 		if(this.transform.position.x < -4.269f){
 			this.transform.position = new Vector2(-4.269f, this.transform.position.y);	
 		}	
-		if(this.transform.position.x > 28f){
-			this.transform.position = new Vector2(28f, this.transform.position.y);	
-		}
+		/*if (!proximaCena) {
+			if (MovimentoCamera.floor == 0) {
+				if (this.transform.position.x > 10.4f) {
+					this.transform.position = new Vector2 (10.4f, this.transform.position.y);	
+				}
+			}
+		}*/
+		//if(proximaCena) {
+			if (this.transform.position.x > 28f) {
+				this.transform.position = new Vector2 (28f, this.transform.position.y);	
+			}
+		//}
 
 		float andar = Input.GetAxis("Horizontal") * velocidade;
 		this.transform.position += new Vector3(andar, 0) * Time.deltaTime;
@@ -100,9 +116,6 @@ public class Jogador : MonoBehaviour {
 		}
 		else if (coll.tag == "Descer") {
 			botaoDescer.SetActive (true);
-		}
-		else if (coll.tag == "Porta" & abrirPorta == true & Input.GetKey(KeyCode.E)) {
-			Debug.Log ("Ganhou");
 		}
 		else {
 			podePular = true;

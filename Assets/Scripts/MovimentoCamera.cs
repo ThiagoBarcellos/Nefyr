@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MovimentoCamera : MonoBehaviour {
 
+	public float z = -20;
+
 	public float speed = 0.15f;
 	private Transform target;
 	//Terreo
@@ -24,37 +26,36 @@ public class MovimentoCamera : MonoBehaviour {
 	public float xMax1;
 	public float yMax1;
 
-
 	void Start () {
 		target = GameObject.FindGameObjectWithTag ("Player").transform;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (floor == 0) {
-			if (target) {
+		if (target == null)
+			return;
 
-				transform.position = Vector3.Lerp (transform.position, target.position, speed) + new Vector3 (0, 0, target.position.z);
+		if (floor == 0) {
+
+				transform.position = Vector3.Lerp (transform.position, target.position, speed);
 
 				if (maxMin & !Jogador.proximaCena) {
 
-					transform.position = new Vector3 (Mathf.Clamp (target.position.x, xMin, xMax), Mathf.Clamp (target.position.y, yMin, yMax), 2 * target.position.z - 20);
+					transform.position = new Vector3 (Mathf.Clamp (transform.position.x, xMin, xMax), Mathf.Clamp (transform.position.y, yMin, yMax), z);
 				}
 				if(maxMin & Jogador.proximaCena){
-					transform.position = new Vector3 (Mathf.Clamp (target.position.x, xMin, xMaxDepois), Mathf.Clamp (target.position.y, yMin, yMax), 2 * target.position.z - 20);
+					transform.position = new Vector3 (Mathf.Clamp (transform.position.x, xMin, xMaxDepois), Mathf.Clamp (transform.position.y, yMin, yMax), z);
 				}
-			}
+
 		}
 		if (floor == 1) {
-			if (target) {
-
-				transform.position = Vector3.Lerp (transform.position, target.position, speed) + new Vector3 (0, 0, target.position.z);
+				transform.position = Vector3.Lerp (transform.position, target.position, speed);
 
 				if (maxMin1) {
 
-					transform.position = new Vector3 (Mathf.Clamp (target.position.x, xMin1, xMax1), Mathf.Clamp (target.position.y, yMin1, yMax1), 2* target.position.z - 20);
+					transform.position = new Vector3 (Mathf.Clamp (transform.position.x, xMin1, xMax1), Mathf.Clamp (transform.position.y, yMin1, yMax1), z);
 				}
-			}
+
 		}
 	}
 }
