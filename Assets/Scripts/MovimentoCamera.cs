@@ -12,6 +12,7 @@ public class MovimentoCamera : MonoBehaviour {
 	public float xMin;
 	public float yMin;
 	public float xMax;
+	public float xMaxDepois;
 	public float yMax;
 	//Informar o numero da andar (0 para terreo)
 	static public int floor;
@@ -35,9 +36,12 @@ public class MovimentoCamera : MonoBehaviour {
 
 				transform.position = Vector3.Lerp (transform.position, target.position, speed) + new Vector3 (0, 0, target.position.z);
 
-				if (maxMin) {
+				if (maxMin & !Jogador.proximaCena) {
 
 					transform.position = new Vector3 (Mathf.Clamp (target.position.x, xMin, xMax), Mathf.Clamp (target.position.y, yMin, yMax), 2 * target.position.z - 20);
+				}
+				if(maxMin & Jogador.proximaCena){
+					transform.position = new Vector3 (Mathf.Clamp (target.position.x, xMin, xMaxDepois), Mathf.Clamp (target.position.y, yMin, yMax), 2 * target.position.z - 20);
 				}
 			}
 		}

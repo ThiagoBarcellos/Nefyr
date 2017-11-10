@@ -11,6 +11,7 @@ public class Jogador : MonoBehaviour {
 	public float velocidade = 5f;
 	private SpriteRenderer sR;
 	public bool irFaseDois = false;
+
 	// 0 para rua, 1 pra biblioteca...
 	static public int fase = 0;
 
@@ -24,7 +25,10 @@ public class Jogador : MonoBehaviour {
 	public GameObject botaoDescer;
 	public GameObject interagivelDescer;
 
-	public bool abrirPorta = false;
+	public GameObject porta;
+
+	static public bool abrirPorta = false;
+	static public bool proximaCena = false;
 
 	public bool mudarAndar;
 
@@ -40,8 +44,8 @@ public class Jogador : MonoBehaviour {
 		if(this.transform.position.x < -4.269f){
 			this.transform.position = new Vector2(-4.269f, this.transform.position.y);	
 		}	
-		if(this.transform.position.x > 10.6f){
-			this.transform.position = new Vector2(10.6f, this.transform.position.y);	
+		if(this.transform.position.x > 28f){
+			this.transform.position = new Vector2(28f, this.transform.position.y);	
 		}
 
 		float andar = Input.GetAxis("Horizontal") * velocidade;
@@ -71,6 +75,13 @@ public class Jogador : MonoBehaviour {
 			livro.SetActive(false);
 			interagivel.SetActive (false);
 			abrirPorta = true;
+		}
+		if (abrirPorta) {
+			porta.transform.Translate (new Vector2 (0f, -0.1f));
+			if (porta.transform.position.y < -2.58) {
+				abrirPorta = false;
+				proximaCena = true;
+			}
 		}
 	}
 		
