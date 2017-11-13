@@ -16,8 +16,8 @@ public class Cutscene : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Jogador.abrirPorta) {
-			Time.timeScale = 0;
-			ir.Lerp()
+			//Time.timeScale = 0;
+			//ir.Lerp()
 		}
 	}
 }

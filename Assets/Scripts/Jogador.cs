@@ -104,7 +104,7 @@ public class Jogador : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D coll){
 		if (coll.tag == "biblioteca") {
 			irFaseDois = true;
-		} 
+		}
 		else if (coll.tag == "Escada") {
 			mudarAndar = true;
 		} 
@@ -113,9 +113,12 @@ public class Jogador : MonoBehaviour {
 		} 
 		else if (coll.tag == "Subir") {
 			botaoSubir.SetActive (true);
-		}
+		} 
 		else if (coll.tag == "Descer") {
 			botaoDescer.SetActive (true);
+		} 
+		else if (coll.tag == "PassarCenaLivro") {
+			SceneManager.LoadScene ("SalaLivro");
 		}
 		else {
 			podePular = true;
