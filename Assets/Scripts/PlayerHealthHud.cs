@@ -4,13 +4,15 @@ using UnityEngine.UI;
 public class PlayerHealthHud : MonoBehaviour {
 
 	public Jogador jogador;
-	public Image[] healthImages;
+	public int maxHealth = 100;
+	public int currHealth;
+
+	void awake(){
+		currHealth = maxHealth;
+	}
 
 	public void OnHealthChange()
 	{
-		for (int i = 0; i < healthImages.Length; i++) {
-			healthImages [i].enabled = i < jogador.health;
-		}
 	}
 
 

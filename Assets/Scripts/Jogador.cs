@@ -10,6 +10,10 @@ public class Jogador : MonoBehaviour {
 
 	public int health = 2;
 
+	private bool lendoHistoria = false;
+
+	public GameObject Hud;
+
 	public Rigidbody2D rb2d;
 	public bool podePular;
 	public float velocidade = 3f;
@@ -69,19 +73,10 @@ public class Jogador : MonoBehaviour {
 	void Update () {
 		if(this.transform.position.x < -4.269f){
 			this.transform.position = new Vector2(-4.269f, this.transform.position.y);	
-		}	
-		/*if (!proximaCena) {
-			if (MovimentoCamera.floor == 0) {
-				if (this.transform.position.x > 10.4f) {
-					this.transform.position = new Vector2 (10.4f, this.transform.position.y);	
-				}
-			}
-		}*/
-		//if(proximaCena) {
-			if (this.transform.position.x > 28f) {
-				this.transform.position = new Vector2 (28f, this.transform.position.y);	
-			}
-		//}
+		}
+		if (this.transform.position.x > 28f) {
+			this.transform.position = new Vector2 (28f, this.transform.position.y);	
+		}
 
 		float andar = Input.GetAxis("Horizontal") * velocidade;
 		this.transform.position += new Vector3(andar, 0) * Time.deltaTime;
@@ -94,12 +89,15 @@ public class Jogador : MonoBehaviour {
 		{
 			sR.flipX = !sR.flipX;
 		}
-		if (HabilitarPuzzle & Input.GetKey (KeyCode.I)) {
-			if (Puzzle.activeSelf) {
+		if (HabilitarPuzzle & Input.GetKeyDown(KeyCode.I)) {
+			lendoHistoria = !lendoHistoria;
+			if (lendoHistoria) {
+				Time.timeScale = 1;
 				Puzzle.SetActive (false);
 			}
 			else
 			{
+				Time.timeScale = 0;
 				Puzzle.SetActive (true);
 			}
 		}
